@@ -14140,6 +14140,10 @@ public abstract class Entity extends TurnOrdered
         return quirks;
     }
 
+    public int getQuirkValue() {
+        return getQuirks().quirkPoints(this);
+    }
+
     public boolean hasQuirk(String name) {
         if ((game != null) && !gameOptions().booleanOption(OptionsConstants.ADVANCED_STRATOPS_QUIRKS)) {
             return false;
