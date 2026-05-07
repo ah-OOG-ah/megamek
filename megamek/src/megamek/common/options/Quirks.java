@@ -78,63 +78,63 @@ public class Quirks extends AbstractOptions {
     @Override
     public synchronized void initialize() {
         IBasicOptionGroup posQuirk = addGroup("pos_quirks", POS_QUIRKS);
-        addQuirk(posQuirk, QUIRK_POS_ANIMALISTIC, false, e -> 0);
+        addQuirk(posQuirk, QUIRK_POS_ANIMALISTIC, false, _ -> 0);
         // TODO AA quirk points
-        addQuirk(posQuirk, QUIRK_POS_ANTI_AIR, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_ATMOSPHERE_FLYER, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_BATTLE_COMP, false, e -> 5);
-        addQuirk(posQuirk, QUIRK_POS_BARREL_FIST_LA, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_BARREL_FIST_RA, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_BATTLE_FIST_LA, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_BATTLE_FIST_RA, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_COMBAT_COMPUTER, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_COMMAND_MEK, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_COMPACT, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_COWL, false, e -> 4);
+        addQuirk(posQuirk, QUIRK_POS_ANTI_AIR, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_ATMOSPHERE_FLYER, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_BATTLE_COMP, false, _ -> 5);
+        addQuirk(posQuirk, QUIRK_POS_BARREL_FIST_LA, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_BARREL_FIST_RA, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_BATTLE_FIST_LA, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_BATTLE_FIST_RA, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_COMBAT_COMPUTER, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_COMMAND_MEK, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_COMPACT, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_COWL, false, _ -> 4);
         addQuirk(posQuirk, QUIRK_POS_DIRECTIONAL_TORSO_MOUNT, false,
               e -> (e.getUnitType() == Entity.ETYPE_QUAD_MEK) ? 3 : 2);
-        addQuirk(posQuirk, QUIRK_POS_DISTRACTING, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_DOCKING_ARMS, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_EASY_MAINTAIN, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_EASY_PILOT, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_EXT_TWIST, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_FAST_RELOAD, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_FINE_MANIPULATORS, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_GOOD_REP_1, false, e -> 0);
+        addQuirk(posQuirk, QUIRK_POS_DISTRACTING, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_DOCKING_ARMS, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_EASY_MAINTAIN, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_EASY_PILOT, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_EXT_TWIST, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_FAST_RELOAD, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_FINE_MANIPULATORS, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_GOOD_REP_1, false, _ -> 0);
         // TODO is this right
-        addQuirk(posQuirk, QUIRK_POS_GOOD_REP_2, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_HYPER_ACTUATOR, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_IMP_COM, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_IMP_LIFE_SUPPORT, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_L, false, e -> 5);
-        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_M, false, e -> 4);
-        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_S, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_IMPROVED_SENSORS, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_INTERNAL_BOMB, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_LOW_PROFILE, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_MULTI_TRAC, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_NIMBLE_JUMPER, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_OVERHEAD_ARMS, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_POWER_REVERSE, false, e -> 3);
-        addQuirk(posQuirk, QUIRK_POS_PRO_ACTUATOR, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_REINFORCED_LEGS, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_RUGGED_1, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_RUGGED_2, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_RUMBLE_SEAT, false, e -> 0);
+        addQuirk(posQuirk, QUIRK_POS_GOOD_REP_2, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_HYPER_ACTUATOR, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_IMP_COM, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_IMP_LIFE_SUPPORT, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_L, false, _ -> 5);
+        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_M, false, _ -> 4);
+        addQuirk(posQuirk, QUIRK_POS_IMP_TARG_S, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_IMPROVED_SENSORS, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_INTERNAL_BOMB, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_LOW_PROFILE, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_MULTI_TRAC, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_NIMBLE_JUMPER, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_OVERHEAD_ARMS, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_POWER_REVERSE, false, _ -> 3);
+        addQuirk(posQuirk, QUIRK_POS_PRO_ACTUATOR, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_REINFORCED_LEGS, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_RUGGED_1, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_RUGGED_2, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_RUMBLE_SEAT, false, _ -> 0);
         // TODO scout bike points
-        addQuirk(posQuirk, QUIRK_POS_SCOUT_BIKE, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_SEARCHLIGHT, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_STABLE, false, e -> 2);
-        addQuirk(posQuirk, QUIRK_POS_TRAILER_HITCH, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_IS, false, e -> 1);
+        addQuirk(posQuirk, QUIRK_POS_SCOUT_BIKE, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_SEARCHLIGHT, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_STABLE, false, _ -> 2);
+        addQuirk(posQuirk, QUIRK_POS_TRAILER_HITCH, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_IS, false, _ -> 1);
         // TODO clan ubuiq points
-        addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_CLAN, false, e -> 1);
+        addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_CLAN, false, _ -> 1);
         // TODO variable targeting points
-        addQuirk(posQuirk, QUIRK_POS_VAR_RNG_TARG, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_LA, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_RA, false, e -> 0);
-        addQuirk(posQuirk, QUIRK_POS_VTOL_ROTOR_COAXIAL, false, e -> 1);
-        addQuirk(posQuirk, QUIRK_POS_VTOL_ROTOR_DUAL, false, e -> 1);
+        addQuirk(posQuirk, QUIRK_POS_VAR_RNG_TARG, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_LA, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_RA, false, _ -> 0);
+        addQuirk(posQuirk, QUIRK_POS_VTOL_ROTOR_COAXIAL, false, _ -> 1);
+        addQuirk(posQuirk, QUIRK_POS_VTOL_ROTOR_DUAL, false, _ -> 1);
 
 
         // CHECKSTYLE IGNORE ForbiddenWords FOR 7 LINES
@@ -221,7 +221,7 @@ public class Quirks extends AbstractOptions {
     public int quirkPoints(Entity entity) {
         return getOptionsList().stream()
               .filter(this::isQuirkActive)
-              .mapToInt(q -> pointFuncs.get(q.getName()).apply(entity))
+              .mapToInt(q -> pointFuncs.getOrDefault(q.getName(), _ -> 0).apply(entity))
               .sum();
     }
 
