@@ -14155,6 +14155,15 @@ public abstract class Entity extends TurnOrdered
         return unitQuirks + weaponQuirks;
     }
 
+    /**
+     * Some quirks are complicated for one reason or another - report them in a string
+     */
+    public String getQuirkComplications() {
+        return getQuirks().complicatedQuirks().stream().map(q ->
+              "\n- " + q.getDisplayableName() + " present, but may not be properly accounted for!").reduce("",
+              (a, b) -> a + b);
+    }
+
     public boolean hasQuirk(String name) {
         if ((game != null) && !gameOptions().booleanOption(OptionsConstants.ADVANCED_STRATOPS_QUIRKS)) {
             return false;

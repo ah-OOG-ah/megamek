@@ -39,9 +39,12 @@ import static megamek.common.options.OptionsConstants.*;
 
 import java.io.Serial;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import java.util.function.Function;
+
+import java.util.stream.Stream;
 
 import megamek.common.battleArmor.BattleArmor;
 import megamek.common.equipment.Engine;
@@ -68,10 +71,12 @@ public class Quirks extends AbstractOptions {
     public static final String POS_QUIRKS = "PosQuirks";
     public static final String NEG_QUIRKS = "NegQuirks";
 
-    public final HashMap<String, Function<Entity, Integer>> pointFuncs;
+    private final HashMap<String, Function<Entity, Integer>> pointFuncs;
+    private final HashSet<IOption> complications;
 
     public Quirks() {
         pointFuncs = new HashMap<>();
+        complications = new HashSet<IOption>();
         super();
     }
 
@@ -81,6 +86,7 @@ public class Quirks extends AbstractOptions {
         addQuirk(posQuirk, QUIRK_POS_ANIMALISTIC, false, _ -> 0);
         // TODO AA quirk points
         addQuirk(posQuirk, QUIRK_POS_ANTI_AIR, false, _ -> 0);
+        markComplicated(QUIRK_POS_ANTI_AIR);
         addQuirk(posQuirk, QUIRK_POS_ATMOSPHERE_FLYER, false, _ -> 3);
         addQuirk(posQuirk, QUIRK_POS_BATTLE_COMP, false, _ -> 5);
         addQuirk(posQuirk, QUIRK_POS_BARREL_FIST_LA, false, _ -> 1);
@@ -103,6 +109,7 @@ public class Quirks extends AbstractOptions {
         addQuirk(posQuirk, QUIRK_POS_GOOD_REP_1, false, _ -> 0);
         // TODO is this right
         addQuirk(posQuirk, QUIRK_POS_GOOD_REP_2, false, _ -> 0);
+        markComplicated(QUIRK_POS_GOOD_REP_2);
         addQuirk(posQuirk, QUIRK_POS_HYPER_ACTUATOR, false, _ -> 1);
         addQuirk(posQuirk, QUIRK_POS_IMP_COM, false, _ -> 1);
         addQuirk(posQuirk, QUIRK_POS_IMP_LIFE_SUPPORT, false, _ -> 1);
@@ -123,14 +130,17 @@ public class Quirks extends AbstractOptions {
         addQuirk(posQuirk, QUIRK_POS_RUMBLE_SEAT, false, _ -> 0);
         // TODO scout bike points
         addQuirk(posQuirk, QUIRK_POS_SCOUT_BIKE, false, _ -> 0);
+        markComplicated(QUIRK_POS_SCOUT_BIKE);
         addQuirk(posQuirk, QUIRK_POS_SEARCHLIGHT, false, _ -> 1);
         addQuirk(posQuirk, QUIRK_POS_STABLE, false, _ -> 2);
         addQuirk(posQuirk, QUIRK_POS_TRAILER_HITCH, false, _ -> 1);
         addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_IS, false, _ -> 1);
         // TODO clan ubuiq points
         addQuirk(posQuirk, QUIRK_POS_UBIQUITOUS_CLAN, false, _ -> 1);
+        markComplicated(QUIRK_POS_UBIQUITOUS_CLAN);
         // TODO variable targeting points
         addQuirk(posQuirk, QUIRK_POS_VAR_RNG_TARG, false, _ -> 0);
+        markComplicated(QUIRK_POS_VAR_RNG_TARG);
         addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_LA, false, _ -> 0);
         addQuirk(posQuirk, QUIRK_POS_VESTIGIAL_HANDS_RA, false, _ -> 0);
         addQuirk(posQuirk, QUIRK_POS_VTOL_ROTOR_COAXIAL, false, _ -> 1);
@@ -215,6 +225,10 @@ public class Quirks extends AbstractOptions {
         pointFuncs.put(name, points);
     }
 
+    protected void markComplicated(String name) {
+        complications.add(getOption(name));
+    }
+
     @Override
     protected AbstractOptionsInfo getOptionsInfoImp() {
         return QuirksInfo.getInstance();
@@ -231,6 +245,11 @@ public class Quirks extends AbstractOptions {
               .filter(this::isQuirkActive)
               .mapToInt(q -> pointFuncs.getOrDefault(q.getName(), _ -> 0).apply(entity))
               .sum();
+    }
+
+    /** @return A list of complicated unit quirks that are active in this Quirks object. */
+    public List<IOption> complicatedQuirks() {
+        return getOptionsList().stream().filter(this::isQuirkActive).filter(complications::contains).collect(toList());
     }
 
     /**
