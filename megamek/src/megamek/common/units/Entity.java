@@ -35,6 +35,7 @@
 package megamek.common.units;
 
 import static megamek.common.bays.Bay.UNSET_BAY;
+import static megamek.common.options.OptionsConstants.QUIRK_WEAPON_POS_MOD_WEAPONS;
 
 import java.awt.Image;
 import java.io.Serial;
@@ -14141,7 +14142,17 @@ public abstract class Entity extends TurnOrdered
     }
 
     public int getQuirkValue() {
-        return getQuirks().quirkPoints(this);
+        int unitQuirks = getQuirks().quirkPoints(this);
+
+        boolean hasModularWeapons = false;
+        int weaponQuirks = 0;
+        for (final var weapon : getWeaponList()) {
+            hasModularWeapons |= weapon.hasQuirk(QUIRK_WEAPON_POS_MOD_WEAPONS);
+            weaponQuirks += weapon.getQuirks().quirkPoints(weapon.getType());
+        }
+        weaponQuirks += hasModularWeapons ? 1 : 0;
+
+        return unitQuirks + weaponQuirks;
     }
 
     public boolean hasQuirk(String name) {

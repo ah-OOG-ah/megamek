@@ -34,10 +34,14 @@
 
 package megamek.common.options;
 
+import static java.lang.Math.ceil;
 import static java.util.stream.Collectors.toList;
 
 import java.io.Serial;
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.function.Function;
 
 import megamek.common.battleArmor.BattleArmor;
 import megamek.common.equipment.EquipmentType;
@@ -65,31 +69,57 @@ public class WeaponQuirks extends AbstractOptions {
     private static final long serialVersionUID = -8455685281028804229L;
     public static final String WPN_QUIRKS = "WeaponQuirks";
 
+    public final HashMap<String, Function<WeaponType, Integer>> pointFuncs;
+
     public WeaponQuirks() {
+        pointFuncs = new HashMap<>();
         super();
     }
 
     @Override
     public void initialize() {
         IBasicOptionGroup wpnQuirk = addGroup("wpn_quirks", WPN_QUIRKS);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_ACCURATE, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_INACCURATE, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_STABLE_WEAPON, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_IMP_COOLING, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_POOR_COOLING, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_NO_COOLING, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_EXPOSED_LINKAGE, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_AMMO_FEED_PROBLEMS, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_STATIC_FEED, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_EM_INTERFERENCE, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_FAST_RELOAD, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_DIRECT_TORSO_MOUNT, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_MOD_WEAPONS, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_JETTISON_CAPABLE, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_NON_FUNCTIONAL, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_MISREPAIRED, false);
-        addOption(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_MIS_REPLACED, false);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_ACCURATE, false, wt -> {
+            // TODO this cares about max damage *per grouping*, not total max. is this right?
+            int pts = (int) ceil(wt.getDamage() / 5f);
+            return pts == 0 ? 2 : pts;
+        });
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_INACCURATE, false, wt -> {
+            // TODO see above
+            int pts = (int) ceil(wt.getDamage() / 5f);
+            return pts == 0 ? -2 : -pts;
+        });
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_STABLE_WEAPON, false, wt -> {
+            // TODO does this care about grouping or total?
+            return (int) ceil(wt.getDamage() / 7f);
+        });
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_IMP_COOLING, false, _ -> 1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_POOR_COOLING, false, _ -> -1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_NO_COOLING, false, _ -> -2);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_EXPOSED_LINKAGE, false, _ -> -2);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_AMMO_FEED_PROBLEMS, false, _ -> -1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_STATIC_FEED, false, _ -> -1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_EM_INTERFERENCE, false, _ -> -1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_FAST_RELOAD, false, _ -> 1);
+        // TODO: can this be taken multiple times? I'm assuming it only gets taken and counted once, for the mech, such
+        //  that this is merely here for accounting purposes
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_DIRECT_TORSO_MOUNT, false, _ -> 0);
+        // This can be taken on multiple weapons, but it should always cost 1. As such, we cost it zero here and
+        // account for it later, in the 'Mech quirk calculation.
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_MOD_WEAPONS, false, _ -> 0);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_POS_JETTISON_CAPABLE, false, _ -> 1);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_NON_FUNCTIONAL, false, _ -> -5);
+        // TODO: should these have rebates? can't find them on sarna, I suspect they're just for TTRPG gameplay and
+        //  not construction
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_MISREPAIRED, false, _ -> 0);
+        addQuirk(wpnQuirk, OptionsConstants.QUIRK_WEAPON_NEG_MIS_REPLACED, false, _ -> 0);
 
+    }
+
+    protected void addQuirk(IBasicOptionGroup group, String name, boolean defaultVal,
+          Function<WeaponType, Integer> points) {
+        addOption(group, name, defaultVal);
+        pointFuncs.put(name, points);
     }
 
     //TODO
@@ -114,6 +144,14 @@ public class WeaponQuirks extends AbstractOptions {
     /** @return A list of weapon quirks that are active in this Quirks object. */
     public List<IOption> activeQuirks() {
         return getOptionsList().stream().filter(IOption::booleanValue).collect(toList());
+    }
+
+    /** @return net point value of quirks on the weapon. */
+    public int quirkPoints(WeaponType wt) {
+        return getOptionsList().stream()
+              .filter(IOption::booleanValue)
+              .mapToInt(q -> pointFuncs.getOrDefault(q.getName(), _ -> 0).apply(wt))
+              .sum();
     }
 
     public static boolean isQuirkDisallowed(IOption quirk, Entity en,
