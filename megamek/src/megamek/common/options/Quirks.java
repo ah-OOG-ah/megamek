@@ -147,49 +147,51 @@ public class Quirks extends AbstractOptions {
         //Compact Mech
 
         IBasicOptionGroup negQuirk = addGroup("neg_quirks", NEG_QUIRKS);
-        addOption(negQuirk, QUIRK_NEG_BAD_REP_IS, false);
-        addOption(negQuirk, QUIRK_NEG_BAD_REP_CLAN, false);
-        addOption(negQuirk, QUIRK_NEG_CRAMPED_COCKPIT, false);
-        addOption(negQuirk, QUIRK_NEG_DIFFICULT_EJECT, false);
-        addOption(negQuirk, QUIRK_NEG_DIFFICULT_MAINTAIN, false);
-        addOption(negQuirk, QUIRK_NEG_EM_INTERFERENCE_WHOLE, false);
-        addOption(negQuirk, QUIRK_NEG_EXP_ACTUATOR, false);
-        addOption(negQuirk, QUIRK_NEG_FLAWED_COOLING, false);
-        addOption(negQuirk, QUIRK_NEG_FRAGILE_FUEL, false);
-        addOption(negQuirk, QUIRK_NEG_GAS_HOG, false);
-        addOption(negQuirk, QUIRK_NEG_HARD_PILOT, false);
-        addOption(negQuirk, QUIRK_NEG_ILLEGAL_DESIGN, false);
-        addOption(negQuirk, QUIRK_NEG_LARGE_DROPPER, false);
-        addOption(negQuirk, QUIRK_NEG_LOW_ARMS, false);
-        addOption(negQuirk, QUIRK_NEG_NO_ARMS, false);
-        addOption(negQuirk, QUIRK_NEG_NO_EJECT, false);
-        addOption(negQuirk, QUIRK_NEG_NO_TWIST, false);
-        addOption(negQuirk, QUIRK_NEG_NON_STANDARD, false);
-        addOption(negQuirk,
+        addQuirk(negQuirk, QUIRK_NEG_BAD_REP_IS, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_BAD_REP_CLAN, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_CRAMPED_COCKPIT, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_DIFFICULT_EJECT, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_DIFFICULT_MAINTAIN, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_EM_INTERFERENCE_WHOLE, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_EXP_ACTUATOR, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_FLAWED_COOLING, false, _ -> -3);
+        addQuirk(negQuirk, QUIRK_NEG_FRAGILE_FUEL, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_GAS_HOG, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_HARD_PILOT, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_ILLEGAL_DESIGN, false, _ -> 0);
+        addQuirk(negQuirk, QUIRK_NEG_LARGE_DROPPER, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_LOW_ARMS, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_NO_ARMS, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_NO_EJECT, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_NO_TWIST, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_NON_STANDARD, false, _ -> -1);
+        addQuirk(negQuirk,
               QUIRK_NEG_OBSOLETE,
-              ""); // Comma-separated years: "obsoleteYear,reintroYear,obsoleteYear2,..."
-        addOption(negQuirk, QUIRK_NEG_POOR_LIFE_SUPPORT, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_PERFORMANCE, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_SEALING, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_TARG_L, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_TARG_M, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_TARG_S, false);
-        addOption(negQuirk, QUIRK_NEG_POOR_WORK, false);
-        addOption(negQuirk, QUIRK_NEG_PROTOTYPE, false);
-        addOption(negQuirk, QUIRK_NEG_RAMSHACKLE, false);
-        addOption(negQuirk, QUIRK_NEG_SENSOR_GHOSTS, false);
-        addOption(negQuirk, QUIRK_NEG_SUSCEPTIBLE_CWS, false);
-        addOption(negQuirk, QUIRK_NEG_UNBALANCED, false);
-        addOption(negQuirk, QUIRK_NEG_UNSTREAMLINED, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_HEAD_1, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_HEAD_2, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_HEAD_3, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_HEAD_4, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_HEAD_5, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_LEGS, false);
-        addOption(negQuirk, QUIRK_NEG_WEAK_UNDERCARRIAGE, false);
-        addOption(negQuirk, QUIRK_NEG_ATMOSPHERE_INSTABILITY, false);
-        addOption(negQuirk, QUIRK_NEG_OVERSIZED, false);
+              "", // Comma-separated years: "obsoleteYear,reintroYear,obsoleteYear2,..."
+              _ -> 4);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_LIFE_SUPPORT, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_PERFORMANCE, false, _ -> -3);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_SEALING, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_TARG_L, false, _ -> -4);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_TARG_M, false, _ -> -3);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_TARG_S, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_POOR_WORK, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_PROTOTYPE, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_RAMSHACKLE, false, _ -> -3);
+        addQuirk(negQuirk, QUIRK_NEG_SENSOR_GHOSTS, false, _ -> -2);
+        // This isn't an actual quirk, so it doesn't have a point value
+        addQuirk(negQuirk, QUIRK_NEG_SUSCEPTIBLE_CWS, false, _ -> 0);
+        addQuirk(negQuirk, QUIRK_NEG_UNBALANCED, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_UNSTREAMLINED, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_HEAD_1, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_HEAD_2, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_HEAD_3, false, _ -> -3);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_HEAD_4, false, _ -> -4);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_HEAD_5, false, _ -> -5);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_LEGS, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_WEAK_UNDERCARRIAGE, false, _ -> -1);
+        addQuirk(negQuirk, QUIRK_NEG_ATMOSPHERE_INSTABILITY, false, _ -> -2);
+        addQuirk(negQuirk, QUIRK_NEG_OVERSIZED, false, _ -> -3);
 
         //quirks not implemented yet
         //Exposed Weapon Linkage (weapon-specific, sort of)
@@ -202,6 +204,12 @@ public class Quirks extends AbstractOptions {
     }
 
     protected void addQuirk(IBasicOptionGroup group, String name, boolean defaultVal,
+          Function<Entity, Integer> points) {
+        addOption(group, name, defaultVal);
+        pointFuncs.put(name, points);
+    }
+
+    protected void addQuirk(IBasicOptionGroup group, String name, String defaultVal,
           Function<Entity, Integer> points) {
         addOption(group, name, defaultVal);
         pointFuncs.put(name, points);
